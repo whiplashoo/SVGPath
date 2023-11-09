@@ -59,19 +59,19 @@ public struct SVGPath: Hashable {
 
         func moveTo() throws -> SVGCommand {
             let numbers = try assertArgs(2)
-            return .moveTo(SVGPoint(x: numbers[0], y: -numbers[1]))
+            return .moveTo(SVGPoint(x: numbers[0], y: numbers[1]))
         }
 
         func lineTo() throws -> SVGCommand {
             let numbers = try assertArgs(2)
-            return .lineTo(SVGPoint(x: numbers[0], y: -numbers[1]))
+            return .lineTo(SVGPoint(x: numbers[0], y: numbers[1]))
         }
 
         func lineToVertical() throws -> SVGCommand {
             let numbers = try assertArgs(1)
             return .lineTo(SVGPoint(
                 x: isRelative ? 0 : commands.lastPoint.x,
-                y: -numbers[0]
+                y: numbers[0]
             ))
         }
 
@@ -86,8 +86,8 @@ public struct SVGPath: Hashable {
         func quadCurve() throws -> SVGCommand {
             let numbers = try assertArgs(4)
             return .quadratic(
-                SVGPoint(x: numbers[0], y: -numbers[1]),
-                SVGPoint(x: numbers[2], y: -numbers[3])
+                SVGPoint(x: numbers[0], y: numbers[1]),
+                SVGPoint(x: numbers[2], y: numbers[3])
             )
         }
 
@@ -102,15 +102,15 @@ public struct SVGPath: Hashable {
             if !isRelative {
                 control = control + lastPoint
             }
-            return .quadratic(control, SVGPoint(x: numbers[0], y: -numbers[1]))
+            return .quadratic(control, SVGPoint(x: numbers[0], y: numbers[1]))
         }
 
         func cubicCurve() throws -> SVGCommand {
             let numbers = try assertArgs(6)
             return .cubic(
-                SVGPoint(x: numbers[0], y: -numbers[1]),
-                SVGPoint(x: numbers[2], y: -numbers[3]),
-                SVGPoint(x: numbers[4], y: -numbers[5])
+                SVGPoint(x: numbers[0], y: numbers[1]),
+                SVGPoint(x: numbers[2], y: numbers[3]),
+                SVGPoint(x: numbers[4], y: numbers[5])
             )
         }
 
@@ -127,8 +127,8 @@ public struct SVGPath: Hashable {
             }
             return .cubic(
                 control,
-                SVGPoint(x: numbers[0], y: -numbers[1]),
-                SVGPoint(x: numbers[2], y: -numbers[3])
+                SVGPoint(x: numbers[0], y: numbers[1]),
+                SVGPoint(x: numbers[2], y: numbers[3])
             )
         }
 
@@ -139,7 +139,7 @@ public struct SVGPath: Hashable {
                 rotation: numbers[2] * .pi / 180,
                 largeArc: numbers[3] != 0,
                 sweep: numbers[4] != 0,
-                end: SVGPoint(x: numbers[5], y: -numbers[6])
+                end: SVGPoint(x: numbers[5], y: numbers[6])
             ))
         }
 
